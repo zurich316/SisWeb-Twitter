@@ -24,9 +24,18 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">Name</label>
 							<div class="col-md-6">
+								<input type="text" class="form-control" name="uname" value="{{ old('uname') }}">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label">User Name</label>
+							<div class="col-md-6">
 								<input type="text" class="form-control" name="name" value="{{ old('name') }}">
 							</div>
 						</div>
+
+					
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">E-Mail Address</label>
