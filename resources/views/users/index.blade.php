@@ -1,14 +1,36 @@
 @extends('app')
 @section('content')
-<h1>Usuarios:</h1>
-@foreach ($users as $user)
-	<p>Usuario:{{$user->name}}</p>
-	<p>Nombre: {{$user->uname}}</p>
-	<p>Comentarios:</p>
-	@foreach ($user->posts as $posts)
-		<p>{{$posts->content}}</p>
-	@endforeach
-	<br><br>
-@endforeach
-
+<div class="col-lg-10 col-lg-offset-1">
+ 
+    <h1><i class="fa fa-users"></i> User Administration </h1>
+ 
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+ 
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th></th>
+                </tr>
+            </thead>
+ 
+            <tbody>
+                @foreach ($users as $user)
+                <tr>
+                    <td>{{ $user->uname }}</td>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->email }}</td>
+                 
+                </tr>
+                @endforeach
+            </tbody>
+ 
+        </table>
+    </div>
+ 
+ 
+</div>
+ 
 @stop
