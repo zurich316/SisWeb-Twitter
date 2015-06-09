@@ -1,14 +1,11 @@
 @extends('app')
 @section('content')
 <h2>Crear nueva post</h2>
-
-{!! Form::open(['url'=>'posts']) !!}
+{!! Form::model($post, ['method'=>'PATCH', 'action' => ['PostsController@update', $post->id]]) !!}
 {!! Form::label('name','Contenido:') !!}
 {!! Form::text('content') !!}
+{!! Form::hidden('type',$post->id) !!}
 <br>
-<div class="form-group">
-{!! Form::hidden('type',1) !!}
-
 <br><br>
 {!! Form::submit('Guardar') !!}
 {!! Form::close() !!}

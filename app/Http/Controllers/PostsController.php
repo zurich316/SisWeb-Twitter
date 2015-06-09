@@ -18,7 +18,7 @@ class PostsController extends Controller {
 	 */
 	public function index()
 	{
-		$posts = Post::all();
+		$posts = Post::orderBy('id', 'DESC')->get();
 		return view('posts.index', compact('posts'));
 	}
 
@@ -53,7 +53,8 @@ class PostsController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		$post = Post::find($id);
+		return view('posts.show', compact('post'));
 	}
 
 	/**
@@ -64,7 +65,8 @@ class PostsController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$post = Post::find($id);
+		return view('posts.edit', compact('post'));
 	}
 
 	/**
@@ -73,9 +75,12 @@ class PostsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id,PostRequest $request)
 	{
-		//
+		$post = Post::find($id);
+		$input = $request->all();
+		$post->update($input);
+		return redirect('posts');
 	}
 
 	/**
