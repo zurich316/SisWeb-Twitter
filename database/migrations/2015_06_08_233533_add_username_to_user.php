@@ -14,7 +14,7 @@ class AddUsernameToUser extends Migration {
 	{
 		Schema::table('users', function(Blueprint $table)
 		{
-			$table->string('uname')->nullable();
+			$table->string('uname')->nullable();//Es el nombre y apellido
 		});
 	}
 
