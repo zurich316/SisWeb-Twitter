@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'PostsController@index');
+Route::get('/', 'UsersController@index');
 
 Route::get('home', 'HomeController@index');
 Route::resource('posts','PostsController');
