@@ -3,7 +3,10 @@
 
 <div class="col-lg-10 col-lg-offset-1">
  
-    <h1><i class="fa fa-users"></i> User Administration </h1>
+     
+
+  
+        <h1><i class="fa fa-users"></i> User Administration </h1>
     
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
@@ -13,7 +16,6 @@
                     <th>Username</th>
                     <th>Name</th>                    
                     <th>Email</th>
-                    <th></th>
                 </tr>
             </thead>
  
@@ -29,32 +31,16 @@
             </tbody>
  
         </table>
-    </div>  
+    </div> 
     @if (Auth::guest())
-    <p>Necesitas estar en una cuenta para postear en el muro</p>
     @else
-        {!! Form::open(['url'=>'posts']) !!}
-        {!! Form::label('name','Contenido:') !!}
-        {!! Form::text('content') !!}
-        {!! Form::hidden('type',1) !!}
-        <br>    
-        {!! Form::submit('Guardar') !!}
-        {!! Form::close() !!}
-        @if ($errors->any())
-            @foreach($errors -> all() as $error)
-                {{$error}}
-            @endforeach
-        @endif
-        <br>
+    <p>Usuario ID:{{Auth::user()->getId()}}</p>
+    
+    <br>
+
     @endif
     <br>
-    <h3>Posts:</h3>
-    @foreach ($posts as $post)
-         <p>-{{$post->content}}</p>
-         <p>Fecha: {{$post->created_at}}</p>
-         <p>Usuario: {{$post->user->name}}</p>
-    @endforeach
- 
+    
  
 </div>
  

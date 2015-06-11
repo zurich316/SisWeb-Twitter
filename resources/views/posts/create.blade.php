@@ -3,7 +3,7 @@
 <h2>Crear nueva post</h2>
 
 {!! Form::open(['url'=>'posts']) !!}
-{!! Form::label('name','Contenido:') !!}
+{!! Form::textarea('name','Contenido:') !!}
 {!! Form::text('content') !!}
 <br>
 <div class="form-group">

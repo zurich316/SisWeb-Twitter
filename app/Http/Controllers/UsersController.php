@@ -9,9 +9,9 @@ use Request;
 
 class UsersController extends Controller {
 
-	public function __construct(){
+	/**public function __construct(){
 		$this->middleware('auth',['only'=>'show']);
-	}
+	}*/
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -20,8 +20,8 @@ class UsersController extends Controller {
 	public function index()
 	{
 		$users = User::all();
-		$posts = Post::orderBy('id', 'DESC')->get();
-		return view('users.index', compact('users','posts'));
+
+		return view('users.index', compact('users'));
 	}
 
 	/**

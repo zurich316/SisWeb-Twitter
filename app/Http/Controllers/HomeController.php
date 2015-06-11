@@ -1,10 +1,5 @@
 <?php namespace App\Http\Controllers;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use App\User;
-use App\Post;
-use Auth;
-use Request;
+
 class HomeController extends Controller {
 
 	/*
@@ -32,8 +27,7 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		$users = User::all();
-		return view('users.index', compact('users'));
+		return view('home');
 	}
 
 }

@@ -4,9 +4,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Request;
-use User;
-use Post;
-
+use App\Post;
+use App\Like;
+use Auth;
 class LikesController extends Controller {
 
 	/**
@@ -36,7 +36,11 @@ class LikesController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		
+		$input = $request::all();
+		$like = new Like($input);
+		$post = Post::find($input['post_id']);
+		Auth::user()->likes()->save($like);
+		return redirect('users/'.$post->user_id);
 	}
 
 	/**
@@ -80,7 +84,10 @@ class LikesController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$like = Like::find($id);
+		$post = Post::find($like->post_id);
+		Like::destroy($id);
+		return redirect('users/'.$post->user_id);
 	}
 
 }
