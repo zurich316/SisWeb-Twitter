@@ -1,5 +1,10 @@
 <?php namespace App\Http\Controllers;
-
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use App\User;
+use App\Post;
+use Auth;
+use Request;
 class HomeController extends Controller {
 
 	/*
@@ -18,10 +23,7 @@ class HomeController extends Controller {
 	 *
 	 * @return void
 	 */
-	public function __construct()
-	{
-		$this->middleware('auth');
-	}
+	
 
 	/**
 	 * Show the application dashboard to the user.
@@ -30,7 +32,8 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('home');
+		$users = User::all();
+		return view('users.index', compact('users'));
 	}
 
 }

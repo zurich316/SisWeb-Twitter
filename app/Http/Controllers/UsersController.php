@@ -3,11 +3,15 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Post;
 use Auth;
 use Request;
 
 class UsersController extends Controller {
 
+	public function __construct(){
+		$this->middleware('auth',['only'=>'show']);
+	}
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -16,7 +20,8 @@ class UsersController extends Controller {
 	public function index()
 	{
 		$users = User::all();
-		return view('users.index', compact('users'));
+		$posts = Post::orderBy('id', 'DESC')->get();
+		return view('users.index', compact('users','posts'));
 	}
 
 	/**
@@ -47,7 +52,8 @@ class UsersController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		$user = User::find($id);
+		return view('users.show', compact('user'));
 	}
 
 	/**

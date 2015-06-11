@@ -2,15 +2,13 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Post;
-use App\Http\Requests\PostRequest;
-use Auth;
-class PostsController extends Controller {
 
+use Request;
+use User;
+use Post;
 
-	public function __construct(){
-		$this->middleware('auth',['only'=>'create','only'=>'show']);
-	}
+class LikesController extends Controller {
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -18,8 +16,7 @@ class PostsController extends Controller {
 	 */
 	public function index()
 	{
-		$posts = Post::orderBy('id', 'DESC')->get();
-		return view('posts.index', compact('posts'));
+		//
 	}
 
 	/**
@@ -29,7 +26,7 @@ class PostsController extends Controller {
 	 */
 	public function create()
 	{
-		return view('posts.create');
+		//
 	}
 
 	/**
@@ -37,12 +34,9 @@ class PostsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(PostRequest $request)
+	public function store(Request $request)
 	{
-		$input = $request->all();
-		$post = new Post($input);
-		Auth::user()->posts()->save($post);
-		return redirect('users/'.$post->user_id);
+		
 	}
 
 	/**
@@ -53,8 +47,7 @@ class PostsController extends Controller {
 	 */
 	public function show($id)
 	{
-		$post = Post::find($id);
-		return view('posts.show', compact('post'));
+		//
 	}
 
 	/**
@@ -65,8 +58,7 @@ class PostsController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$post = Post::find($id);
-		return view('posts.edit', compact('post'));
+		//
 	}
 
 	/**
@@ -75,12 +67,9 @@ class PostsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id,PostRequest $request)
+	public function update($id)
 	{
-		$post = Post::find($id);
-		$input = $request->all();
-		$post->update($input);
-		return redirect('posts');
+		//
 	}
 
 	/**
@@ -91,8 +80,7 @@ class PostsController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		Post::destroy($id);
-		return redirect('posts');
+		//
 	}
 
 }
