@@ -18,6 +18,7 @@ Route::resource('posts','PostsController');
 Route::resource('users','UsersController');
 Route::resource('likes','LikesController');
 Route::resource('follows','FollowsController');
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
