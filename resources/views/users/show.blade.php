@@ -162,12 +162,8 @@ $(document).ready( function(){
         e.preventDefault();
 
         var content = $(this).find('input[name=content]').val();
-<<<<<<< HEAD
         var user_id = $(this).find('input[name=user_id]').val();
 
-=======
-        var movie_id = $(this).find('input[name=movie_id]').val();
->>>>>>> 5188e022a97bcae3e7eb7cefc6ef7dd7f02627cf
         $.ajax({
             type: "POST",
             url: '/users/.$user->id'
