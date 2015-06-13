@@ -39,6 +39,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $this->hasMany('App\Like');
 	}
 
+	public function reposts(){
+		return $this->hasMany('App\Repost');
+	}
+
 	public function getId()
 	{
 	  return $this->id;
@@ -62,9 +66,4 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $count;
 	}
 
-
-	public function hola($i)
-	{
-		return $i+1;
-	}
 }
