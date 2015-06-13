@@ -35,6 +35,7 @@
     @if (Auth::guest())
            @else
         @if (Auth::user()->getId()==$user->id)
+<<<<<<< HEAD
         {!! Form::open(['url'=>'posts','class' => 'postForm' ]) !!}
         {!! Form::label('name','Contenido:') !!}
         {!! Form::textarea('content', '' , ['id' => 'contenido']) !!}
@@ -49,6 +50,23 @@
                 {{$error}}
             @endforeach
         @endif
+=======
+            {!! Form::open(['url'=>'posts','class' => 'postForm' ]) !!}
+            {!! Form::label('name','Contenido:') !!}
+            {!! Form::textarea('content', '' , ['id' => 'contenido']) !!}
+            {!! Form::hidden('type',1) !!}
+            {!! Form::hidden('user_id',$user->id) !!}
+            <br>    
+            {!! Form::submit('Guardar') !!}
+            {!! Form::close() !!}
+            @if ($errors->any())
+                @foreach($errors -> all() as $error)
+                    {{$error}}
+                @endforeach
+            @endif
+        
+           
+>>>>>>> 5188e022a97bcae3e7eb7cefc6ef7dd7f02627cf
         @endif
     @endif
 </div>
@@ -61,6 +79,11 @@
          <p>Fecha: {{$post->created_at}}</p>
          <p>Usuario: {{$post->user->name}}</p>
          <b>Likes:</b> {{$post->likes()->count()}}
+          
+         @if ($post->type==2)
+            <h3><i>Es un re post</i></h3>
+            <p>dasda:{{$user->id}}</p>
+         @endif
         @if (Auth::guest())
            @else
                     @if ($post->liked(Auth::user()))
@@ -73,11 +96,33 @@
                     {!! Form::submit('Like') !!}
                     {!! Form::close() !!}
                     @endif
-        @endif           
-           
 
-            
+        @endif    
          <br>
+    @endforeach
+    @foreach ($reposts as $repost)
+         <p>Contenido:{{$repost->post->content}}</p>
+         <p>Fecha: {{$repost->post->created_at}}</p>
+         <p>Usuario: {{$repost->post->user->name}}</p>
+         <b>Likes:</b> {{$repost->post->likes()->count()}}
+        @if ($repost->post->type==2)
+            <h3><i>Es un re repost->post</i></h3>
+            <p>dasda:{{$user->id}}</p>
+         @endif
+        @if (Auth::guest())
+           @else
+                    @if ($repost->post->liked(Auth::user()))
+                        {!! Form::open(array('route' => array('likes.destroy', $repost->post->userLike(Auth::user())->id), 'method' => 'delete')) !!}
+                        <button type="submit" class="btn btn-danger btn-mini">Unlike</button>
+                        {!! Form::close() !!}
+                    @else
+                    {!! Form::open(['url'=>'likes']) !!}
+                    {!! Form::hidden('repost->post_id',$repost->post->id) !!}
+                    {!! Form::submit('Like') !!}
+                    {!! Form::close() !!}
+                    @endif
+
+        @endif      
     @endforeach
     <h2><i>Seguidores</i></h2>
     @foreach ($follows as $follow)
@@ -86,7 +131,7 @@
             <strong>----------------------------------------------------------------</strong>
          <p>-{{$post->content}}</p>
          <p>Fecha: {{$post->created_at}}</p>
-         <p>Usuario: {{$post->user->name}}</p>
+         <p>Usuario:<a href="/users/{{$post->user->id}}">{{$post->user->name}}</a> </p>
          <b>Likes:</b> {{$post->likes()->count()}}
         @if (Auth::guest())
            @else
@@ -105,6 +150,24 @@
     @endforeach
     <br>
 
+    <h3>Otras cuentas</h3>
+    <table border =1> 
+            <thead>
+                <tr>
+                    <th>Otros usuarios</th>
+                </tr>
+            </thead>
+ 
+            <tbody>
+                @foreach ($users as $user)
+                <tr>
+                    <td><a href="/users/{{$user->id}}">{{ $user->name }}</a></td>              
+                </tr>
+                @endforeach
+            </tbody>
+ 
+        </table>
+
    
 </div>
 
@@ -115,8 +178,12 @@ $(document).ready( function(){
         e.preventDefault();
 
         var content = $(this).find('input[name=content]').val();
+<<<<<<< HEAD
         var user_id = $(this).find('input[name=user_id]').val();
 
+=======
+        var movie_id = $(this).find('input[name=movie_id]').val();
+>>>>>>> 5188e022a97bcae3e7eb7cefc6ef7dd7f02627cf
         $.ajax({
             type: "POST",
             url: '/users/.$user->id'

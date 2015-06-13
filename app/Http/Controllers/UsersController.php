@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Post;
 use App\Follow;
+use App\Repost;
 use Auth;
 use Request;
 
@@ -24,13 +25,15 @@ class UsersController extends Controller {
 		if (Auth::guest())
 		{
 			$users = User::all();
-			return view('users.index', compact('users','u'));
+			return view('users.index', compact('users'));
 		}
 		else
 		{
+			$reposts= Repost::where('user_id',Auth::user()->getId())->get();
+			$users = User::all();
 			$user = User::find(Auth::user()->getId());
 			$follows=Follow::where('userfolow_id',Auth::user()->getId())->get();
-			return view('users.show', compact('user','follows'));
+			return view('users.show', compact('user','follows','users','reposts'));
 		}
 	}
 
@@ -63,8 +66,10 @@ class UsersController extends Controller {
 	public function show($id)
 	{
 		$user = User::find($id);
+		$users = User::all();
+		$reposts= Repost::where('user_id',$id)->get();
 		$follows=Follow::where('userfolow_id',$id)->get();
-		return view('users.show', compact('user','follows'));
+		return view('users.show', compact('user','follows','users','reposts'));
 	}
 
 	/**

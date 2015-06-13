@@ -13,6 +13,10 @@ class Post extends Model {
 		return $this->hasMany('App\Like');
 	}
 
+	public function reposts(){
+		return $this->hasMany('App\Repost');
+	}
+
 	public function liked(User $user){
 		$count = Like::where('user_id',$user->id)->where('post_id', $this->id)->count();
 		return ($count > 0);
