@@ -35,7 +35,7 @@
     @if (Auth::guest())
            @else
         @if (Auth::user()->getId()==$user->id)
-<<<<<<< HEAD
+
         {!! Form::open(['url'=>'posts','class' => 'postForm' ]) !!}
         {!! Form::label('name','Contenido:') !!}
         {!! Form::textarea('content', '' , ['id' => 'contenido']) !!}
@@ -50,23 +50,7 @@
                 {{$error}}
             @endforeach
         @endif
-=======
-            {!! Form::open(['url'=>'posts','class' => 'postForm' ]) !!}
-            {!! Form::label('name','Contenido:') !!}
-            {!! Form::textarea('content', '' , ['id' => 'contenido']) !!}
-            {!! Form::hidden('type',1) !!}
-            {!! Form::hidden('user_id',$user->id) !!}
-            <br>    
-            {!! Form::submit('Guardar') !!}
-            {!! Form::close() !!}
-            @if ($errors->any())
-                @foreach($errors -> all() as $error)
-                    {{$error}}
-                @endforeach
-            @endif
-        
-           
->>>>>>> 5188e022a97bcae3e7eb7cefc6ef7dd7f02627cf
+ 
         @endif
     @endif
 </div>
