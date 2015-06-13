@@ -27,14 +27,18 @@
                         @endif
                     @endif
     </div>
-    <h2><i>Mis Posts</i></h2>
+<!-- <div class="container-fluid">Mis Post</div> -->
+<div class="col-lg-10 col-lg-offset-1">
+    <h2><i class="fa fa-users">Mis Posts</i></h2>
 
+<div class="table-responsive">
     @if (Auth::guest())
            @else
         @if (Auth::user()->getId()==$user->id)
         {!! Form::open(['url'=>'posts','class' => 'postForm' ]) !!}
         {!! Form::label('name','Contenido:') !!}
         {!! Form::textarea('content', '' , ['id' => 'contenido']) !!}
+
         {!! Form::hidden('type',1) !!}
         {!! Form::hidden('user_id',$user->id) !!}
         <br>    
@@ -46,7 +50,11 @@
             @endforeach
         @endif
         @endif
-    @endif 
+    @endif
+</div>
+
+</div>
+
     @foreach ($user->posts as $post)
          <strong>----------------------------------------------------------------</strong>
          <p>-{{$post->content}}</p>
@@ -107,11 +115,11 @@ $(document).ready( function(){
         e.preventDefault();
 
         var content = $(this).find('input[name=content]').val();
-
+        var user_id = $(this).find('input[name=user_id]').val();
 
         $.ajax({
             type: "POST",
-            url: '/users'
+            url: '/users/.$user->id'
             data: {content: content},
             success: function( post ) {
                 $('#posts').append(post);
@@ -121,5 +129,11 @@ $(document).ready( function(){
 })
 
 </script>
+
+<script>
+function cuenta(){
+       document.forms[0].caracteres.value=document.forms[0].texto.value.length
+}
+</script> 
  
 @stop
