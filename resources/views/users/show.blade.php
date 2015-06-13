@@ -10,17 +10,20 @@
                     <p>Nombre:{{ $user->uname }}</p>
                     <p>User Name:{{ $user->name }}</p>
                     <p>Correo: {{ $user->email }}</p>
-                    @if (Auth::user()->getId()!=$user->id)   
-                        @if($user->seguidores(Auth::user(),$user->id)==0)                           
-                            {!! Form::open(['url'=>'follows']) !!}
-                            {!! Form::hidden('user_id',$user->id) !!}
-                            {!! Form::hidden('userfolow_id', $user->id)!!}
-                            {!! Form::submit('Seguir') !!}
-                            {!! Form::close() !!}
-                        @else
-                            {!! Form::open(array('route' => array('follows.destroy', $user->seguidor(Auth::user(),$user->id)), 'method' => 'delete')) !!}
-                            <button type="submit" class="btn btn-danger btn-mini">Ya no seguir</button>
-                            {!! Form::close() !!}
+                    @if (Auth::guest())
+                    @else
+                        @if (Auth::user()->getId()!=$user->id)   
+                            @if($user->seguidores(Auth::user(),$user->id)==0)                           
+                                {!! Form::open(['url'=>'follows']) !!}
+                                {!! Form::hidden('user_id',$user->id) !!}
+                                {!! Form::hidden('userfolow_id', $user->id)!!}
+                                {!! Form::submit('Seguir') !!}
+                                {!! Form::close() !!}
+                            @else
+                                {!! Form::open(array('route' => array('follows.destroy', $user->seguidor(Auth::user(),$user->id)), 'method' => 'delete')) !!}
+                                <button type="submit" class="btn btn-danger btn-mini">Ya no seguir</button>
+                                {!! Form::close() !!}
+                            @endif
                         @endif
                     @endif
     </div>
