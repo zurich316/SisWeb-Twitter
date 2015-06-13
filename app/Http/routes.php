@@ -12,7 +12,8 @@
 */
 
 Route::get('/', 'UsersController@index');
-
+Route::get('/users/sigoa/{id}','UsersController@sigoa');
+Route::get('/users/seguidores/{id}','UsersController@seguidores');
 Route::get('home', 'UsersController@index');
 Route::resource('posts','PostsController');
 Route::resource('users','UsersController');

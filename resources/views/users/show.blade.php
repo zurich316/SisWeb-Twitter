@@ -10,6 +10,11 @@
                     <p>Nombre:{{ $user->uname }}</p>
                     <p>User Name:{{ $user->name }}</p>
                     <p>Correo: {{ $user->email }}</p>
+                    <p>Pregunta 1</p>
+                    <p>Contador de post:{{$user->posts->count()}}</p>
+                    <p><a href="/users/seguidores/{{$user->id}}">Contador de Seguidores:  {{$user->follows->count()}}</a></p>
+                    <p><a href="/users/sigoa/{{$user->id}}">Contador de a los q sigo:  {{$follows->count()}}</a></p>
+                   
                     @if (Auth::guest())
                     @else
                         @if (Auth::user()->getId()!=$user->id)   

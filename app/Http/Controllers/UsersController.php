@@ -20,6 +20,20 @@ class UsersController extends Controller {
 	 *
 	 * @return Response
 	 */
+
+	public function sigoa($id)
+	{
+		$ids=$id;
+		$follows=Follow::where('userfolow_id',$id)->get();
+		return view('users.sigoa',compact('follows','ids'));
+	}
+	public function seguidores($id)
+	{
+		$follows=Follow::where('user_id',$id)->get();
+		$users=User::All();
+		return view('users.seguidores',compact('follows','users'));
+	}
+
 	public function index()
 	{	
 		if (Auth::guest())
