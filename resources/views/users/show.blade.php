@@ -76,16 +76,13 @@
         @endif    
          <br>
     @endforeach
-    <p>------------------------------</p>
     @foreach ($reposts as $repost)
-        <p>{{$repost->post->content}}</p>
-            <strong>----------------------------------------------------------------</strong>
-         <p>-{{$post->content}}</p>
+         <p>Contenido:{{$repost->post->content}}</p>
          <p>Fecha: {{$repost->post->created_at}}</p>
          <p>Usuario: {{$repost->post->user->name}}</p>
          <b>Likes:</b> {{$repost->post->likes()->count()}}
-         @if ($repost->post->type==2)
-            <h3><i>Es un re repost post</i></h3>
+        @if ($repost->post->type==2)
+            <h3><i>Es un re repost->post</i></h3>
             <p>dasda:{{$user->id}}</p>
          @endif
         @if (Auth::guest())
@@ -101,7 +98,7 @@
                     {!! Form::close() !!}
                     @endif
 
-        @endif     
+        @endif      
     @endforeach
     <h2><i>Seguidores</i></h2>
     @foreach ($follows as $follow)

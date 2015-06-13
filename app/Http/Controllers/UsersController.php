@@ -67,8 +67,9 @@ class UsersController extends Controller {
 	{
 		$user = User::find($id);
 		$users = User::all();
+		$reposts= Repost::where('user_id',$id)->get();
 		$follows=Follow::where('userfolow_id',$id)->get();
-		return view('users.show', compact('user','follows','users'));
+		return view('users.show', compact('user','follows','users','reposts'));
 	}
 
 	/**
