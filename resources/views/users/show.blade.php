@@ -10,6 +10,19 @@
                     <p>Nombre:{{ $user->uname }}</p>
                     <p>User Name:{{ $user->name }}</p>
                     <p>Correo: {{ $user->email }}</p>
+                    @if (Auth::user()->getId()!=$user->id)   
+                        @if($user->seguidores(Auth::user(),$user->id)==0)                           
+                            {!! Form::open(['url'=>'follows']) !!}
+                            {!! Form::hidden('user_id',$user->id) !!}
+                            {!! Form::hidden('userfolow_id', $user->id)!!}
+                            {!! Form::submit('Seguir') !!}
+                            {!! Form::close() !!}
+                        @else
+                            {!! Form::open(array('route' => array('follows.destroy', $user->seguidor(Auth::user(),$user->id)), 'method' => 'delete')) !!}
+                            <button type="submit" class="btn btn-danger btn-mini">Ya no seguir</button>
+                            {!! Form::close() !!}
+                        @endif
+                    @endif
     </div>
     <h2><i>Mis Posts</i></h2>
 
@@ -55,8 +68,32 @@
          <br>
     @endforeach
     <h2><i>Seguidores</i></h2>
+    @foreach ($follows as $follow)
+        <p></p>
+        @foreach($follow->user->posts as $post)
+            <strong>----------------------------------------------------------------</strong>
+         <p>-{{$post->content}}</p>
+         <p>Fecha: {{$post->created_at}}</p>
+         <p>Usuario: {{$post->user->name}}</p>
+         <b>Likes:</b> {{$post->likes()->count()}}
+        @if (Auth::guest())
+           @else
+                    @if ($post->liked(Auth::user()))
+                        {!! Form::open(array('route' => array('likes.destroy', $post->userLike(Auth::user())->id), 'method' => 'delete')) !!}
+                        <button type="submit" class="btn btn-danger btn-mini">Unlike</button>
+                        {!! Form::close() !!}
+                    @else
+                    {!! Form::open(['url'=>'likes']) !!}
+                    {!! Form::hidden('post_id',$post->id) !!}
+                    {!! Form::submit('Like') !!}
+                    {!! Form::close() !!}
+                    @endif
+        @endif     
+        @endforeach
+    @endforeach
     <br>
-    <a href="/users">Atras</a>
+
+   
 </div>
  
 @stop

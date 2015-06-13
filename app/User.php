@@ -43,4 +43,28 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	{
 	  return $this->id;
 	}
+
+	public function getname()
+	{
+	  return $this->uname;
+	}
+
+	public function follows(){
+		return $this->hasMany('App\Follow');
+	}
+	public function seguidores(User $user,$id){
+		$count = Follow::where('userfolow_id',$user->id)->where('user_id',$id)->count();
+		return $count;
+	}
+
+	public function seguidor(User $user,$id){
+		$count = Follow::where('userfolow_id',$user->id)->where('user_id',$id)->first();
+		return $count;
+	}
+
+
+	public function hola($i)
+	{
+		return $i+1;
+	}
 }

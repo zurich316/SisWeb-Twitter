@@ -2,35 +2,21 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\User;
-use App\Post;
-use App\Follow;
-use Auth;
+
 use Request;
+use App\Follow;
+use App\User;
+use Auth;
+class FollowsController extends Controller {
 
-class UsersController extends Controller {
-
-	/**public function __construct(){
-		$this->middleware('auth',['only'=>'show']);
-	}*/
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
 	public function index()
-	{	
-		if (Auth::guest())
-		{
-			$users = User::all();
-			return view('users.index', compact('users','u'));
-		}
-		else
-		{
-			$user = User::find(Auth::user()->getId());
-			$follows=Follow::where('userfolow_id',Auth::user()->getId())->get();
-			return view('users.show', compact('user','follows'));
-		}
+	{
+		//
 	}
 
 	/**
@@ -48,9 +34,18 @@ class UsersController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		//
+		$input = $request::all();
+		$follow = new Follow($input);
+		Auth::user()->follows()->save($follow);
+		$a=$follow->user_id;
+		$b=$follow->userfolow_id;
+		$follow->user_id=$b;
+		$follow->userfolow_id=$a;
+		$follow->save();
+		$user = User::find($follow->user_id);
+		return redirect('users/'.$user->id);				
 	}
 
 	/**
@@ -61,9 +56,7 @@ class UsersController extends Controller {
 	 */
 	public function show($id)
 	{
-		$user = User::find($id);
-		$follows=Follow::where('userfolow_id',$id)->get();
-		return view('users.show', compact('user','follows'));
+		//
 	}
 
 	/**
@@ -96,7 +89,10 @@ class UsersController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$follow = Follow::find($id);
+		$user = User::find($follow->user_id);
+		Follow::destroy($id);	
+		return redirect('users/'.$user->id);
 	}
 
 }
