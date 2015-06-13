@@ -28,7 +28,7 @@
 
 </head>
 <body>
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -37,7 +37,8 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Laravel</a>
+				<a class="navbar-brand" href="home">Profile</a>
+
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -45,8 +46,10 @@
 
 					@if (Auth::guest())
 						<li><a href="{{ url('/users') }}">Home</a></li>
+
 					@else
-						<li><a href="/users/{{Auth::user()->getId()}}">{{Auth::user()->getname()}}</a></li>
+						<li><a href="/home">{{Auth::user()->getname()}}</a></li>
+						<li><a href="posts">Posts</a></li>
 					@endif
 				</ul>
 
@@ -66,9 +69,9 @@
 			</div>
 		</div>
 	</nav>
-
+	<div class="container">
 	@yield('content')
-
+	</div>
 	<!-- Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
@@ -79,5 +82,6 @@
         }
     });
 	</script>
+
 </body>
-</html>
+
