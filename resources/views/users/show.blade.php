@@ -32,10 +32,11 @@
     @if (Auth::guest())
            @else
         @if (Auth::user()->getId()==$user->id)
-        {!! Form::open(['url'=>'posts']) !!}
+        {!! Form::open(['url'=>'posts','class' => 'postForm' ]) !!}
         {!! Form::label('name','Contenido:') !!}
-        {!! Form::textarea('content') !!}
+        {!! Form::textarea('content', '' , ['id' => 'contenido']) !!}
         {!! Form::hidden('type',1) !!}
+        {!! Form::hidden('user_id',$user->id) !!}
         <br>    
         {!! Form::submit('Guardar') !!}
         {!! Form::close() !!}
@@ -98,5 +99,27 @@
 
    
 </div>
+
+<script>
+
+$(document).ready( function(){
+    $( 'postForm' ).on( 'submit', function(e){
+        e.preventDefault();
+
+        var content = $(this).find('input[name=content]').val();
+
+
+        $.ajax({
+            type: "POST",
+            url: '/users'
+            data: {content: content},
+            success: function( post ) {
+                $('#posts').append(post);
+            }
+        })
+    })
+})
+
+</script>
  
 @stop
