@@ -150,7 +150,7 @@
             <tbody>
                 @foreach ($users as $user)
                 <tr>
-                    <td><a href="/users/{{$user->id}}">{{ $user->name }}</a></td>              
+                    <td><a href="/users/{{$user->name}}">{{ $user->name }}</a></td>              
                 </tr>
                 @endforeach
             </tbody>

@@ -79,7 +79,7 @@ class UsersController extends Controller {
 	 */
 	public function show($id)
 	{
-		$user = User::find($id);
+		$user = User::where('name',$id)->first();
 		$users = User::all();
 		$reposts= Repost::where('user_id',$id)->get();
 		$follows=Follow::where('userfolow_id',$id)->get();
